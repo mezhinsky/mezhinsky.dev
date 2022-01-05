@@ -20,8 +20,9 @@ function* loadDatabaseSaga() {
 		if (status === 200) {
 			yield put(loadDatabaseSuccess(data));
 		}
-	} catch (err) {
-		yield put(loadDatabaseError(err));
+	} catch (err: any) {
+		let er = new Error(err);
+		yield put(loadDatabaseError(er));
 	}
 }
 
@@ -36,7 +37,8 @@ function* loadPageSaga(props) {
 			yield put(loadPageOk(data));
 		}
 	} catch (err) {
-		yield put(loadPageErr(err));
+		let er = new Error()
+		yield put(loadPageErr(er));
 	}
 }
 

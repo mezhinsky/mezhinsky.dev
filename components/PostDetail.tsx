@@ -9,7 +9,7 @@ import Typography from './NotionTypography';
 
 import 'prismjs/themes/prism-okaidia.css';
 
-const Pdf = dynamic(() => import('react-notion-x').then((notion): any => notion.Pdf));
+// const Pdf = dynamic(() => import('react-notion-x').then((notion): any => notion.Pdf));
 
 const Wrapper = styled.div`
 	@media only screen and (min-width: 600px) {
@@ -74,7 +74,7 @@ const PostItem: React.FunctionComponent<any> = ({ item }) => {
 					fullPage={true}
 					darkMode={false}
 					components={{
-						pdf: Pdf,
+						// pdf: Pdf,
 						code: Code,
 					}}
 				/>
