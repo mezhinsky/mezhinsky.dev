@@ -5,12 +5,12 @@ import Head from 'next/head';
 
 import { END } from 'redux-saga';
 import { createStructuredSelector } from 'reselect';
-import { loadDatabase } from '../store/actions/notion/database.actions';
+import { loadDatabase, loadTest } from '../store/actions/notion/database.actions';
 import { wrapper } from '../store/store';
 
 import BaseLayout from '../components/Layout';
 
-import { makeSelectLoading, makeSelectItems } from '../store/selectors/notion.selectors';
+import { makeSelectLoading, makeSelectItems, makeSelectTest } from '../store/selectors/notion.selectors';
 
 import PostList from '../components/PostList';
 interface PageProps {
@@ -19,9 +19,11 @@ interface PageProps {
 	error: boolean | Error;
 	limit: number;
 	offset: number;
+	test: [],
 }
 
-const Blog: NextPage<PageProps, any> = ({ items, loading, error, limit, offset }) => {
+
+const Blog: NextPage<PageProps, any> = ({ items, test, loading, error, limit, offset }) => {
 	const dispatch = useDispatch();
 
 	const handleLoadMore = () => {
@@ -35,21 +37,25 @@ const Blog: NextPage<PageProps, any> = ({ items, loading, error, limit, offset }
 			<Head>
 				<title>Home @ Mezhinsky.dev</title>
 			</Head>
+			{JSON.stringify(test)}
 			<PostList items={items} loading={loading} slowLoadMore={true} onLoadMore={handleLoadMore} />
 		</BaseLayout>
 	);
 };
 
-Blog.getInitialProps = wrapper.getInitialPageProps((store) => async ({ query, req, res }) => {
+export const getServerSideProps: any = wrapper.getServerSideProps((store): any => async ({ query, req, res }: any) => {
 	if (!req) {
 		store.dispatch(loadDatabase());
+		store.dispatch(loadTest());
 		return {};
 	}
 	await store.dispatch(loadDatabase());
+	await store.dispatch(loadTest());
 	store.dispatch(END);
 	await store.sagaTask!.toPromise();
 	return {};
 });
+
 
 function mapDispatchToProps(dispatch) {
 	return {};
@@ -58,6 +64,7 @@ function mapDispatchToProps(dispatch) {
 const mapStateToProps = createStructuredSelector({
 	loading: makeSelectLoading(),
 	items: makeSelectItems(),
+	test: makeSelectTest(),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Blog);

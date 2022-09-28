@@ -11,9 +11,28 @@ export enum notionActionTypes {
 	LOAD_PAGE_BLOCKS = 'LOAD_PAGE_BLOCKS',
 	LOAD_PAGE_BLOCKS_OK = 'LOAD_PAGE_BLOCKS_OK',
 	LOAD_PAGE_BLOCKS_ERR = 'LOAD_PAGE_BLOCKS_ERR',
+
+	LOAD_TEST = 'LOAD_TEST',
+	LOAD_TEST_OK = 'LOAD_TEST_OK',
+	LOAD_TEST_ERR = 'LOAD_TEST_ERR'
+
 }
 
-export type NotionAction = LoadDatabase | LoadDatabaseSuccess | LoadDatabaseError | LoadPage | LoadPageOk | LoadPageErr | LoadPageBlocks | LoadPageBlocksOk | LoadPageBlocksErr
+export type NotionAction = LoadTest | LoadTestOK | LoadTestERR | LoadDatabase | LoadDatabaseSuccess | LoadDatabaseError | LoadPage | LoadPageOk | LoadPageErr | LoadPageBlocks | LoadPageBlocksOk | LoadPageBlocksErr
+
+
+export interface LoadTest {
+	type: notionActionTypes.LOAD_TEST;
+}
+export interface LoadTestOK {
+	type: notionActionTypes.LOAD_TEST_OK;
+	data: any;
+}
+export interface LoadTestERR {
+	type: notionActionTypes.LOAD_TEST_ERR;
+	err: Error;
+}
+
 
 export interface LoadDatabase {
 	type: notionActionTypes.LOAD_DATABASE;

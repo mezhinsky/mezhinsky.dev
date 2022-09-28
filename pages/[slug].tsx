@@ -32,7 +32,7 @@ const Blog: NextPage<PageProps, any> = ({ page, loading }) => {
 	);
 };
 
-Blog.getInitialProps = wrapper.getInitialPageProps((store) => async ({ query, req, res }) => {
+export const getServerSideProps: any = wrapper.getServerSideProps((store): any => async ({ query, req, res }) => {
 	let { slug } = query;
 	if (!req) {
 		store.dispatch(loadPage(String(slug)));

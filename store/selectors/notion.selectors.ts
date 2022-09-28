@@ -11,3 +11,6 @@ export const makeSelectLoading = () =>
 
 export const makeSelectItem = () =>
 	createSelector(selectPostsState, (substate) => substate.item);
+
+	export const makeSelectTest = () =>
+	createSelector(selectPostsState, (substate) => substate.test);

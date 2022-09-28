@@ -8,6 +8,7 @@ interface State {
 	loading: boolean;
 	error: boolean | Error;
 	first_load: boolean;
+	test: any;
 
 	item: any;
 }
@@ -22,6 +23,8 @@ export const NotionInitialState: State = {
 	first_load: true,
 
 	item: null,
+
+	test: null,
 };
 
 const NotionReducer = (
@@ -32,6 +35,14 @@ const NotionReducer = (
 		case HYDRATE:
 			return { ...state, ...action.payload.notion }
 			
+
+			case notionActionTypes.LOAD_TEST_OK:
+				return {
+					...state,
+					...{
+						test: action.data,
+					},
+				};
 
 		case notionActionTypes.LOAD_DATABASE:
 			return {
