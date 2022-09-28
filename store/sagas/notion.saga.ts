@@ -32,7 +32,7 @@ function* loadDatabaseSaga() {
 	try {
 		const { status, data }: AxiosResponse<any[]> = yield call(
 			axios.get,
-			`http://localhost:3000/api/v1/notion/pages`,
+			`https://mezhinsky-dev-szi8.vercel.app/api/v1/notion/pages`,
 			{
 				params: {
 					// offset,
@@ -54,7 +54,7 @@ function* loadPageSaga(props) {
 	try {
 		const { status, data }: AxiosResponse<any> = yield call(
 			axios.get,
-			`http://localhost:3000/api/v1/notion/page/${props.slug}`,
+			`https://mezhinsky-dev-szi8.vercel.app/api/v1/notion/page/${props.slug}`,
 		);
 
 		if (status === 200) {
